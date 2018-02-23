@@ -22,7 +22,7 @@ class App extends React.Component{
                   About
               </NavItem>
               <NavItem href="/new-client">
-                New Client
+                New Clients
               </NavItem>
             </Nav>
           </Navbar>
