@@ -90,8 +90,14 @@ class NewClientForm extends React.Component {
                 canAdd = false;
             }
         })
-        this.props.passUpData(this.state);
-        this.resetForm();
+
+        if (canAdd) {
+            this.props.passUpData(this.state);
+            this.resetForm();
+        } else {
+            alert("Cannot add this client");
+        }
+
     }
 
     resetForm() {
