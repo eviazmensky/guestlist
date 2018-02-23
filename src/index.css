@@ -1,0 +1,8 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif; }
+  body .errors input {
+    border: 1px red solid; }
+  body .errors label {
+    color: red; }
