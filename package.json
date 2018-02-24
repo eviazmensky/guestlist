@@ -2,6 +2,11 @@
   "name": "guest-list",
   "version": "0.1.0",
   "private": true,
+  "eslintConfig": {
+  "globals": {
+    "window": true
+    }
+  },
   "dependencies": {
     "bootstrap": "^3.3.7",
     "node-sass-chokidar": "0.0.3",
@@ -24,6 +29,14 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "lodash": "^4.17.5"
+    "eslint-config-airbnb": "^16.1.0",
+    "gulp": "latest",
+    "gulp-coffee": "latest",
+    "gulp-concat": "latest",
+    "gulp-connect": "latest",
+    "gulp-eslint": "latest",
+    "gulp-sass": "latest",
+    "gulp-uglify": "latest",
+    "gulp-util": "latest"
   }
 }
