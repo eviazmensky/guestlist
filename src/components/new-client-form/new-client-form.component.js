@@ -1,6 +1,4 @@
 import React from 'react';
-import _ from 'lodash';
-import ReactDOM from 'react-dom';
 import {FormControl, ControlLabel, FormGroup} from 'react-bootstrap';
 
 class NewClientForm extends React.Component {
@@ -17,6 +15,7 @@ class NewClientForm extends React.Component {
         this.handleFormInputBlur = this.handleFormInputBlur.bind(this);
     }
 
+    // todo: make external file / import
     ClientFields  = [
         {
             label: "First Name",
@@ -40,12 +39,13 @@ class NewClientForm extends React.Component {
         }
     ]
 
+    //todo: move to its own component
     formFields() {
         return this.ClientFields.map( (el, i) => 
         <FormGroup key={i} className={this.state.errors[el.field] ? 'errors': ''}>
-                <ControlLabel>
-                    {el.label}
-                </ControlLabel>
+            <ControlLabel>
+                {el.label}
+            </ControlLabel>
             <FormControl 
                 name={el.field} 
                 type={el.type}
@@ -70,12 +70,11 @@ class NewClientForm extends React.Component {
         let field, value;
         field = input.target.name;
         value = input.target.value;
-        this.setState({[field]: value});
         this.setState({
-            errors: {...this.state.errors, [field]: value.length === 0}
-        });
-        
+            [field]: value, 
+            errors: {...this.state.errors, [field]: value.length === 0}});        
     }
+    // end todo
 
     addClient() {
         const fieldCount = this.ClientFields.length;
@@ -104,8 +103,10 @@ class NewClientForm extends React.Component {
         this.ClientFields.forEach( (FormField) => {
             this.setState({[FormField.field]: ''});
         });
-        this.setState({errors: {}});
-        this.setState({touched: {}});
+        this.setState({
+            errors: {}, 
+            touched: {}
+        });
         this.newClientForm.reset();
     }
 

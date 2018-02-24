@@ -1,11 +1,11 @@
 import React from "react";
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import NewClient from './components/newclient.component';
+import NewClient from './components/new-client.component';
 import Home from './components/home.component';
 import About from './components/about.component';
 
-
+// write a data service for dirty components / route guards
 class App extends React.Component{
   render() {
       return (
