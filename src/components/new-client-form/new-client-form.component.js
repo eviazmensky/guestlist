@@ -15,7 +15,6 @@ class NewClientForm extends React.Component {
     this.handleFormInputBlur = this.handleFormInputBlur.bind(this);
   }
 
-  // make external file / import
   ClientFields = [
     {
       label: 'First Name',
@@ -39,34 +38,34 @@ class NewClientForm extends React.Component {
     }
   ]
 
-  // todo: move to its own component
+  // move to its own component
   formFields() {
-    return this.ClientFields.map((el, i) =>
-      <FormGroup key={i} className={this.state.errors[el.field] ? 'errors': ''}>
+    return this.ClientFields.map(el =>
+      <FormGroup className={this.state.errors[el.field] ? 'errors' : ''}>
         <ControlLabel>
-            {el.label}
+          {el.label}
         </ControlLabel>
         <FormControl
-            name={el.field}
-            type={el.type}
-            required='true'
-            value={this.state.value} 
-            onBlur={this.handleFormInputBlur}
-            onChange={this.handleFormInputChange}/>
-      </FormGroup>
-    );
+          name={el.field}
+          type={el.type}
+          required
+          value={this.state.value}
+          onBlur={this.handleFormInputBlur}
+          onChange={this.handleFormInputChange}
+        />
+      </FormGroup>);
   }
 
   handleFormInputBlur(input) {
     const field = input.target.name;
-    this.setState({touched:{...this.state.touched, [field]: true}});
+    this.setState({touched: {...this.state.touched, [field]: true}});
   }
 
   handleFormInputChange(input) {
     const field = input.target.name;
     this.setState({
       [field]: input.target.value,
-      errors: { ...this.state.errors, [field]: input.target.value.length === 0 }
+      errors: {...this.state.errors, [field]: input.target.value.length === 0}
     });
   }
   // end todo
@@ -79,11 +78,11 @@ class NewClientForm extends React.Component {
       canAdd = false;
     }
 
-    Object.keys(this.state.errors).forEach((errorKey) => {
+    Object.keys(this.state.errors).forEach(errorKey => {
       if (this.state.errors[errorKey]) {
         canAdd = false;
       }
-    })
+    });
 
     if (canAdd) {
       this.props.passUpData(this.state);
@@ -104,30 +103,32 @@ class NewClientForm extends React.Component {
 
   render() {
     return (
-        <section className='new-client-container'>
-            <div className='col-xs-2'>
-                New Client App
+      <section className="new-client-container">
+        <div className="col-xs-2">
+          New Client App
+        </div>
+        <div className="col-xs-10">
+          <form ref={el => this.newClientForm = el}>
+            {this.formFields()}
+            <div className="btn-group">
+              <button
+                type="button"
+                className="btn btn-default"
+                onClick={this.addClient}
+              >
+                        Add Client
+              </button>
+              <button
+                type="button"
+                className="btn btn-warning"
+                onClick={this.resetForm}
+              >
+                        Clear Form
+              </button>
             </div>
-            <div className='col-xs-10'>
-                <form ref={(el) => this.newClientForm = el}>
-                    {this.formFields()}
-                    <div className='btn-group'>
-                        <button 
-                            type='button' 
-                            className='btn btn-default' 
-                            onClick={this.addClient}>
-                                Add Client
-                        </button>
-                        <button 
-                            type='button' 
-                            className='btn btn-warning' 
-                            onClick={this.resetForm}>
-                                Clear Form
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </section>
+          </form>
+        </div>
+      </section>
     );
   }
 }
