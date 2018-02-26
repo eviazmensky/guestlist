@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "eslintConfig": {
-  "globals": {
-    "window": true
+    "globals": {
+      "window": true
     }
   },
   "dependencies": {
@@ -37,6 +37,7 @@
     "gulp-eslint": "latest",
     "gulp-sass": "latest",
     "gulp-uglify": "latest",
-    "gulp-util": "latest"
+    "gulp-util": "latest",
+    "node-glob": "^1.2.0"
   }
 }

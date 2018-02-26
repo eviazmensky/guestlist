@@ -41,7 +41,7 @@ class NewClientForm extends React.Component {
   // move to its own component
   formFields() {
     return this.ClientFields.map(el =>
-      <FormGroup className={this.state.errors[el.field] ? 'errors' : ''}>
+      <FormGroup key={el.field} className={this.state.errors[el.field] ? 'errors' : ''}>
         <ControlLabel>
           {el.label}
         </ControlLabel>
