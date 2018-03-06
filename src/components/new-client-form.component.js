@@ -1,77 +1,35 @@
 import React from 'react';
-import {FormControl, ControlLabel, FormGroup} from 'react-bootstrap';
+import FormField from './form-fields.component';
+import ClientFields from '../models/ClientFields';
 
 class NewClientForm extends React.Component {
   constructor(props) {
     super(props);
+    const fields = {};
+    ClientFields.forEach(field => fields[field.field] = '');
     this.state = {
       errors: {},
-      touched: {}
+      touched: {},
+      fields
     };
 
     this.addClient = this.addClient.bind(this);
     this.resetForm = this.resetForm.bind(this);
-    this.handleFormInputChange = this.handleFormInputChange.bind(this);
-    this.handleFormInputBlur = this.handleFormInputBlur.bind(this);
-  }
 
-  ClientFields = [
-    {
-      label: 'First Name',
-      field: 'firstName',
-      type: 'text'
-    },
-    {
-      label: 'Last Name',
-      field: 'lastName',
-      type: 'text'
-    },
-    {
-      label: 'Telephone',
-      field: 'telephone',
-      type: 'tel'
-    },
-    {
-      label: 'Email Address',
-      field: 'email',
-      type: 'email'
-    }
-  ]
-
-  // move to its own component
-  formFields() {
-    return this.ClientFields.map(el =>
-      <FormGroup key={el.field} className={this.state.errors[el.field] ? 'errors' : ''}>
-        <ControlLabel>
-          {el.label}
-        </ControlLabel>
-        <FormControl
-          name={el.field}
-          type={el.type}
-          required
-          value={this.state.value}
-          onBlur={this.handleFormInputBlur}
-          onChange={this.handleFormInputChange}
-        />
-      </FormGroup>);
+    this.updateData = event => {
+      console.log(event);
+      this.setState({
+        fields: {
+          ...this.state.fields,
+          [event.field]: event.value
+        }
+      });
+    };
   }
-
-  handleFormInputBlur(input) {
-    const field = input.target.name;
-    this.setState({touched: {...this.state.touched, [field]: true}});
-  }
-
-  handleFormInputChange(input) {
-    const field = input.target.name;
-    this.setState({
-      [field]: input.target.value,
-      errors: {...this.state.errors, [field]: input.target.value.length === 0}
-    });
-  }
-  // end todo
 
   addClient() {
-    const fieldCount = this.ClientFields.length;
+    console.log(this.state);
+    const fieldCount = ClientFields.length;
     let canAdd = true;
     // have all fields been enterted into
     if (Object.keys(this.state.touched).length < fieldCount) {
@@ -93,15 +51,20 @@ class NewClientForm extends React.Component {
   }
 
   resetForm() {
-    this.ClientFields.forEach(FormField => this.setState({[FormField.field]: ''}));
     this.setState({
       errors: {},
       touched: {}
     });
+    console.log(this.newClientForm.children);
     this.newClientForm.reset();
   }
 
   render() {
+    const fields = ClientFields.map(clientField => {
+      clientField.updateField = this.updateData;
+      clientField.key = clientField.field;
+      return React.createElement(FormField, clientField);
+    });
     return (
       <section className="new-client-container">
         <div className="col-xs-2">
@@ -109,7 +72,7 @@ class NewClientForm extends React.Component {
         </div>
         <div className="col-xs-10">
           <form ref={el => this.newClientForm = el}>
-            {this.formFields()}
+            { fields }
             <div className="btn-group">
               <button
                 type="button"
